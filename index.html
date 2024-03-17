@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+      /*===== VARIABLES CSS =====*/
+      :root {
+        --header-height: 3rem;
+        --font-semi: 600;
+        /*===== Colores =====*/
+        /*Purple 260 - Red 355 - Blue 224 - Pink 340*/
+        /* HSL color mode */
+        --hue-color: 224;
+        --first-color: hsl(var(--hue-color), 89%, 60%);
+        --second-color: hsl(var(--hue-color), 56%, 12%);
+        /*===== Fuente y tipografia =====*/
+        --body-font: "Poppins", sans-serif;
+        --big-font-size: 2rem;
+        --h2-font-size: 1.25rem;
+        --normal-font-size: 0.938rem;
+        --smaller-font-size: 0.75rem;
+        /*===== Margenes =====*/
+        --mb-2: 1rem;
+        --mb-4: 2rem;
+        --mb-5: 2.5rem;
+        --mb-6: 3rem;
+        /*===== z index =====*/
+        --z-back: -10;
+        --z-fixed: 100;
+      }
+      @media screen and (min-width: 968px) {
+        :root {
+          --big-font-size: 3.5rem;
+          --h2-font-size: 2rem;
+          --normal-font-size: 1rem;
+          --smaller-font-size: 0.875rem;
+        }
+      }
+      
+      /*===== BASE =====*/
+      *,
+      ::before,
+      ::after {
+        box-sizing: border-box;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      body {
+        margin: var(--header-height) 0 0 0;
+        font-family: var(--body-font);
+        font-size: var(--normal-font-size);
+        color: var(--second-color);
+      }
+      
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+      
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      
+      a {
+        text-decoration: none;
+      }
+      
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      /*===== CLASS CSS ===== */
+      .section-title {
+        position: relative;
+        font-size: var(--h2-font-size);
+        color: var(--first-color);
+        margin-top: var(--mb-2);
+        margin-bottom: var(--mb-4);
+        text-align: center;
+      }
+      .section-title::after {
+        position: absolute;
+        content: "";
+        width: 64px;
+        height: 0.18rem;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: 2rem;
+        background-color: var(--first-color);
+      }
+      
+      .section {
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+      }
+      
+      /*===== LAYOUT =====*/
+      .bd-grid {
+        max-width: 1024px;
+        display: grid;
+        margin-left: var(--mb-2);
+        margin-right: var(--mb-2);
+      }
+      
+      .l-header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: var(--z-fixed);
+        background-color: #fff;
+        box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
+      }
+      
+      /*===== NAV =====*/
+      .nav {
+        height: var(--header-height);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: var(--font-semi);
+      }
+      @media screen and (max-width: 767px) {
+        .nav__menu {
+          position: fixed;
+          top: var(--header-height);
+          right: -100%;
+          width: 80%;
+          height: 100%;
+          padding: 2rem;
+          background-color: var(--second-color);
+          transition: 0.5s;
+        }
+      }
+      .nav__item {
+        margin-bottom: var(--mb-4);
+      }
+      .nav__link {
+        position: relative;
+        color: #fff;
+      }
+      .nav__link:hover {
+        position: relative;
+      }
+      .nav__link:hover::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 0.18rem;
+        left: 0;
+        top: 2rem;
+        background-color: var(--first-color);
+      }
+      .nav__logo {
+        color: var(--second-color);
+      }
+      .nav__toggle {
+        color: var(--second-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      
+      /*Active menu*/
+      .active-link::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 0.18rem;
+        left: 0;
+        top: 2rem;
+        background-color: var(--first-color);
+      }
+      
+      /*=== Show menu ===*/
+      .show {
+        right: 0;
+      }
+      
+      /*===== HOME =====*/
+      .home {
+        position: relative;
+        row-gap: 5rem;
+        padding: 4rem 0 5rem;
+      }
+      .home__title {
+        font-size: var(--big-font-size);
+        margin-bottom: var(--mb-5);
+      }
+      .home__title-color {
+        color: var(--first-color);
+      }
+      .button {
+        display: inline-block;
+        background-color: var(--first-color);
+        color: #fff;
+        padding: 0.75rem 2.5rem;
+        font-weight: var(--font-semi);
+        border-radius: 0.5rem;
+        transition: 0.3s;
+      }
+      .button:hover {
+        box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.15);
+      }
+      
+      /* ===== ABOUT =====*/
+      .about__container {
+        row-gap: 2rem;
+        text-align: center;
+      }
+      .about__subtitle {
+        margin-bottom: var(--mb-2);
+      }
+      .about__img {
+        justify-self: center;
+      }
+      .about__img img {
+        width: 200px;
+        border-radius: 0.5rem;
+      }
+      
+      /* ===== SKILLS =====*/
+      .skills__container {
+        row-gap: 2rem;
+        text-align: center;
+      }
+      .skills__subtitle {
+        margin-bottom: var(--mb-2);
+      }
+      .skills__text {
+        margin-bottom: var(--mb-4);
+      }
+      .skills__data {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        font-weight: var(--font-semi);
+        padding: 0.5rem 1rem;
+        margin-bottom: var(--mb-4);
+        border-radius: 0.5rem;
+        box-shadow: 0px 4px 25px rgba(14, 36, 49, 0.15);
+      }
+      .skills__icon {
+        font-size: 2rem;
+        margin-right: var(--mb-2);
+        color: var(--first-color);
+      }
+      .skills__names {
+        display: flex;
+        align-items: center;
+      }
+      .skills__bar {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-color: var(--first-color);
+        height: 0.25rem;
+        border-radius: 0.5rem;
+        z-index: var(--z-back);
+      }
+      
+      /* ===== WORK =====*/
+      .work__container {
+        row-gap: 2rem;
+      }
+      .work__img {
+        box-shadow: 0px 4px 25px rgba(14, 36, 49, 0.15);
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+      .work__img img {
+        transition: 1s;
+      }
+      .work__img img:hover {
+        transform: scale(1.1);
+      }
+      
+      /* ===== CONTACT =====*/
+      .contact__input {
+        width: 100%;
+        font-size: var(--normal-font-size);
+        font-weight: var(--font-semi);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1.5px solid var(--second-color);
+        outline: none;
+        margin-bottom: var(--mb-4);
+      }
+      .contact__button {
+        display: block;
+        border: none;
+        outline: none;
+        font-size: var(--normal-font-size);
+        cursor: pointer;
+        margin-left: auto;
+      }
+      
+      /* ===== FOOTER =====*/
+      .footer {
+        background-color: var(--second-color);
+        color: #fff;
+        text-align: center;
+        font-weight: var(--font-semi);
+        padding: 2rem 0;
+      }
+      .footer__title {
+        font-size: 2rem;
+        margin-bottom: var(--mb-4);
+      }
+      .footer__social {
+        margin-bottom: var(--mb-4);
+      }
+      .footer__icon {
+        font-size: 1.5rem;
+        color: #fff;
+        margin: 0 var(--mb-2);
+      }
+      .footer__copy {
+        font-size: var(--smaller-font-size);
+      }
+      
+      /* ===== MEDIA QUERIES=====*/
+      @media screen and (max-width: 320px) {
+        .home {
+          row-gap: 2rem;
+        }
+      }
+      @media screen and (min-width: 576px) {
+        .home {
+          padding: 4rem 0 2rem;
+        }
+        .about__container {
+          grid-template-columns: repeat(2, 1fr);
+          align-items: center;
+          text-align: initial;
+        }
+        .skills__container {
+          grid-template-columns: 0.7fr;
+          justify-content: center;
+          column-gap: 1rem;
+        }
+        .work__container {
+          grid-template-columns: repeat(2, 1fr);
+          column-gap: 2rem;
+          padding-top: 2rem;
+        }
+        .contact__form {
+          width: 360px;
+          padding-top: 2rem;
+        }
+        .contact__container {
+          justify-items: center;
+        }
+      }
+      @media screen and (min-width: 768px) {
+        body {
+          margin: 0;
+        }
+        .section {
+          padding-top: 4rem;
+          padding-bottom: 3rem;
+        }
+        .section-title {
+          margin-bottom: var(--mb-6);
+        }
+        .section-title::after {
+          width: 80px;
+          top: 3rem;
+        }
+        .nav {
+          height: calc(var(--header-height) + 1.5rem);
+        }
+        .nav__list {
+          display: flex;
+          padding-top: 0;
+        }
+        .nav__item {
+          margin-left: var(--mb-6);
+          margin-bottom: 0;
+        }
+        .nav__toggle {
+          display: none;
+        }
+        .nav__link {
+          color: var(--second-color);
+        }
+        .home {
+          padding: 8rem 0 2rem;
+        }
+        .about__container {
+          padding-top: 2rem;
+        }
+        .about__img img {
+          width: 300px;
+        }
+        .skills__container {
+          grid-template-columns: repeat(2, 1fr);
+          column-gap: 2rem;
+          align-items: center;
+          text-align: initial;
+        }
+        .work__container {
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 2rem;
+        }
+      }
+      @media screen and (min-width: 992px) {
+        .bd-grid {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .home {
+          padding: 10rem 0 2rem;
+        }
+        .home__img {
+          width: 450px;
+        }
+      }
+      
+      .homeee {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .circle {
+        color: white;
+        height: 25vh;
+        width: 25vh;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--first-color);
+      }
+      .message {
+        display: none;
+      }
+      #showss{
+        display: block;
+      }
+      #home{
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #skills{
+        width: 100%;
+        display: grid;
+        align-items: center;
+      }
+      </style>
+
+    <!-- =====BOX ICONS===== -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <title>Portfolio website complete</title>
+  </head>
+  <body>
+    <!--===== HEADER =====-->
+    <header class="l-header">
+      <nav class="nav bd-grid">
+        <div>
+          <a href="#" class="nav__logo">AI & DS</a>
+        </div>
+
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="#home" class="nav__link active-link">Home</a>
+            </li>
+            <li class="nav__item">
+              <a href="#about" class="nav__link">Laboratories</a>
+            </li>
+            <li class="nav__item"><a href="#skills" class="nav__link">About</a></li>
+          </ul>
+        </div>
+
+        <div class="nav__toggle" id="nav-toggle">
+          <i class="bx bx-menu"></i>
+        </div>
+      </nav>
+    </header>
+
+    <div class="homeee">
+      <div class="circle" onclick="startCountdown()">
+        <h1 id="countdown">Open</h1>
+      </div>
+    </div>
+
+    <main class="l-main" id="showss">
+      <!--===== HOME =====-->
+      <section class="home bd-grid" id="home">
+        <div class="home__data">
+          <h1 class="home__title">
+            Inauguration<br />Of <span class="home__title-color">ACC LAB</span><br />
+            <p style="font-size: 10px;">ADVANCED COMPUTONG CENTER</p>
+          </h1>
+
+          <a href="#about" class="button">Explore</a>
+        </div>
+      </section>
+
+      <!--===== ABOUT =====-->
+      <section class="about section" id="about">
+        <h2 class="section-title">Laboratories</h2>
+
+        <div class="about__container bd-grid">
+          <div class="about__img">
+            <img src="https://github.com/kowsiganMV/DEPT/assets/85386114/e4e27c4f-b519-4082-9193-28853491a1b6" alt="" />
+          </div>
+
+          <div>
+            <h2 class="about__subtitle">Data Science Lab</h2>
+            <p class="about__text">
+              Data Science Lab is configured which not only facilitates students to practice basic programming in C, C++, and JAVA; but also learn advanced technologies of computer science such as Machine Learning, Artificial Intelligence, Deep Learning and Data Mining.
+            </p>
+          </div>
+          <div class="about__img">
+            <img src="https://github.com/kowsiganMV/DEPT/assets/85386114/68604918-bbeb-4426-92a1-e8aac2497d46" alt="" />
+          </div>
+          <div>
+            <h2 class="about__subtitle">Artificial Intelligence Lab</h2>
+            <p class="about__text">
+              This lab is focused on the research and application of Artificial Intelligence. It aims to deploy cutting-edge methodologies in various areas of Artificial Intelligence by conducting research in both the theoretical and application aspects of it.
+            </p>
+          </div>
+          <div class="about__img">
+            <img src="https://github.com/kowsiganMV/DEPT/assets/85386114/2d0dd51e-77b9-4a19-9dad-cf4ec3364751" alt="" />
+          </div>
+          <div>
+            <h2 class="about__subtitle">Advanced Computing Center</h2>
+            <p class="about__text">
+              Advance Computing Center has setup High-End Servers and Workstations for simulation and modeling in the area of energy research. Various applications in the area of simulation modeling such as Python, Java, C, C++, MatLab, RLab are installed. A Solar Radiation Measurement station is setup in Advance Computing Center.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!--===== SKILLS =====-->
+      <section class="skills section" id="skills">
+        <h2 class="section-title">About</h2>
+
+        <div class="skills__container bd-grid">
+          <div>
+            <h2 class="skills__subtitle">Vision</h2>
+            <p class="skills__text">
+              To become a Centre of Excellence in producing competent and
+              futuristic professionals in Artificial Intelligence and Data Science
+              through quality Education and Research to the Society and Industry.
+            </p>
+          <div>
+            <div>
+              <h2 class="skills__subtitle">Mission</h2>
+              <p class="skills__text">
+                To produce Intellectual, Innovative and Ethical Professionals by
+                Imparting technical and industry oriented skills in Artificial
+                Intelligence and allied areas to pursue their career in Industry and
+                Research.
+              </p>
+            <div>
+              <div>
+                <h2 class="skills__subtitle">PROGRAM SPECIFIC OUTCOMES (PSOs)</h2>
+                <ul class="skills__text">
+                  <li>
+                    PSO 1: Ability to apply major key algorithms, techniques and
+                  theoretical findings in the filed of Artificial Intelligence, Machine
+                  Learning and Deep Learning.
+                  </li>
+                  <li>
+                    PSO 2: Ability to incorporate data science theories and
+                  methodologies into new research in data management, data
+                  visualization and statistical analysis of data.
+                  </li>
+                </ul>
+              <div>
+                <div>
+                  <h2 class="skills__subtitle">PROGRAM EDUCATIONAL OBJECTIVES (PEOs):
+                  </h2>
+                  <ul class="skills__text">
+                    <li>
+                      PEO 1: To excel in professional career and pursue higher education
+                              in the field of artificial intelligence and data science. 
+                    </li>
+                    <li>
+                      PEO 2: To apply their knowledge and skills to develop innovative
+                      solutions for real world problem through lifelong learning. 
+                    </li>
+                    <li>
+                      PEO3: To excel as socially committed engineers or entrepreneurs
+                      with good communication and team work skills with high regard to
+                      ethical and moral values.
+                    </li>
+                  </ul>
+                <div>
+            <img src="assets/img/work3.jpg" alt="" class="skills__img" />
+          </div>
+        </div>
+      </section>
+
+    <!--===== FOOTER =====-->
+    <footer class="footer">
+      <p class="footer__title">AI & DS</p>
+      <p class="footer__copy">&#169; Department of Artificial Intelligence and Data Science</p>
+    </footer>
+
+    <!--===== SCROLL REVEAL =====-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script>/*===== MENU SHOW =====*/
+      const showMenu = (toggleId, navId) => {
+        const toggle = document.getElementById(toggleId),
+          nav = document.getElementById(navId);
+      
+        if (toggle && nav) {
+          toggle.addEventListener("click", () => {
+            nav.classList.toggle("show");
+          });
+        }
+      };
+      showMenu("nav-toggle", "nav-menu");
+      
+      /*==================== REMOVE MENU MOBILE ====================*/
+      const navLink = document.querySelectorAll(".nav__link");
+      
+      function linkAction() {
+        const navMenu = document.getElementById("nav-menu");
+        // When we click on each nav__link, we remove the show-menu class
+        navMenu.classList.remove("show");
+      }
+      navLink.forEach((n) => n.addEventListener("click", linkAction));
+      
+      /*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
+      const sections = document.querySelectorAll("section[id]");
+      
+      const scrollActive = () => {
+        const scrollDown = window.scrollY;
+      
+        sections.forEach((current) => {
+          const sectionHeight = current.offsetHeight,
+            sectionTop = current.offsetTop - 58,
+            sectionId = current.getAttribute("id"),
+            sectionsClass = document.querySelector(
+              ".nav__menu a[href*=" + sectionId + "]"
+            );
+      
+          if (scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight) {
+            sectionsClass.classList.add("active-link");
+          } else {
+            sectionsClass.classList.remove("active-link");
+          }
+        });
+      };
+      window.addEventListener("scroll", scrollActive);
+      
+      /*===== SCROLL REVEAL ANIMATION =====*/
+      const sr = ScrollReveal({
+        origin: "top",
+        distance: "60px",
+        duration: 2000,
+        delay: 200,
+        //     reset: true
+      });
+      
+      sr.reveal(".home__data, .about__img, .skills__subtitle, .skills__text", {});
+      sr.reveal(".home__img, .about__subtitle, .about__text, .skills__img", {
+        delay: 400,
+      });
+      sr.reveal(".home__social-icon", { interval: 200 });
+      sr.reveal(".skills__data, .work__img, .contact__input", { interval: 200 });
+      
+      var count = 10;
+      var countdownInterval;
+      var a = 0;
+      
+      function startCountdown() {
+        if (a == 0) {
+          var countdownElement = document.getElementById("countdown");
+          var cir = document.querySelector(".homeee");
+          countdownInterval = setInterval(function () {
+            count--;
+            countdownElement.textContent = count;
+            if (count === 0) {
+              clearInterval(countdownInterval);
+              cir.style.display = "none";
+            }
+          }, 1000);
+          a += 1;
+        }
+      }
+      function showsidebar() {
+        const side = document.querySelector(".sidebar");
+        side.style.display = "flex";
+      }
+      function closesidebar() {
+        const side = document.querySelector(".sidebar");
+        side.style.display = "none";
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('h3[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+      
+            const targetId = this.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
+      
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+      });
+      </script>
+  </body>
+</html>
